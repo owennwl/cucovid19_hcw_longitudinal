@@ -1,0 +1,63 @@
+DATA:
+FILE IS "dataset.csv";
+
+VARIABLE:
+NAMES ARE subj_id weight phq9_0 gad7_0 pcl5_0 phq9_6 gad7_6 pcl5_6
+phq9_12 gad7_12 pcl5_12 inf_i inf_s work_i work_s;
+
+IDVARIABLE = subj_id;
+
+USEVARIABLES ARE phq9_0 gad7_0 pcl5_0 phq9_6 gad7_6 pcl5_6
+phq9_12 gad7_12 pcl5_12 inf_i inf_s work_i work_s;
+
+MISSING ARE ALL (-999);
+
+WEIGHT = weight;
+
+CLASSES=C(2);
+
+ANALYSIS:
+TYPE = mixture;
+Processors = 4;
+STARTS = 3000, 300;
+STITERATIONS = 500;
+
+MODEL:
+%overall%
+dep_i dep_s dep_q| phq9_0@0 phq9_6@6 phq9_12@18;
+anx_i anx_s anx_q| gad7_0@0 gad7_6@6 gad7_12@18;
+ptsd_i ptsd_s ptsd_q| pcl5_0@0 pcl5_6@6 pcl5_12@18;
+
+!Effect of covariates
+c on inf_i inf_s work_i work_s;
+dep_i anx_i ptsd_i on inf_i work_i;
+dep_s anx_s ptsd_s on inf_i inf_s work_i work_s;
+dep_q anx_q ptsd_q on inf_i inf_s work_i work_s;
+
+!Autocorrelations
+phq9_0 with gad7_0 pcl5_0; gad7_0 with pcl5_0;
+phq9_6 with gad7_6 pcl5_6; gad7_6 with pcl5_6;
+phq9_12 with gad7_12 pcl5_12; gad7_12 with pcl5_12;
+
+!Setting growth factor variance to 0
+dep_i - ptsd_q@0;
+
+!Class specific effect of covariates
+%C#1%
+dep_i anx_i ptsd_i on inf_i work_i;
+dep_s anx_s ptsd_s on inf_i inf_s work_i work_s;
+dep_q anx_q ptsd_q on inf_i inf_s work_i work_s;
+
+%C#2%
+dep_i anx_i ptsd_i on inf_i work_i;
+dep_s anx_s ptsd_s on inf_i inf_s work_i work_s;
+dep_q anx_q ptsd_q on inf_i inf_s work_i work_s;
+
+
+OUTPUT:
+TECH4 TECH7 TECH11 STDYX;
+
+SAVEDATA:
+FILE = output.csv;
+SAVE = CPROB FSCORES;
+

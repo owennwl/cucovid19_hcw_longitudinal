@@ -1,0 +1,103 @@
+DATA:
+FILE IS "dataset.csv";
+
+VARIABLE:
+NAMES ARE bl_cont bl_death bl_trans bl_fdsworry bl_workst bl_train
+bl_quit bl_coord bl_com bl_man bl_sup
+t6_cont t6_death t6_trans t6_fdsworry t6_workst t6_train
+t6_quit t6_coord t6_com t6_man t6_sup
+t12_cont t12_death t12_trans t12_fdsworry t12_workst t12_train
+t12_quit t12_coord t12_com t12_man t12_sup weights;
+
+
+USEVARIABLES ARE bl_cont t6_cont t12_cont
+bl_death t6_death t12_death
+bl_trans t6_trans t12_trans
+bl_fdsworry t6_fdsworry t12_fdsworry
+bl_workst t6_workst t12_workst
+bl_train t6_train t12_train
+bl_quit t6_quit t12_quit
+bl_coord t6_coord t12_coord
+bl_com t6_com t12_com
+bl_man t6_man t12_man
+bl_sup t6_sup t12_sup;
+
+CATEGORICAL are bl_cont - t12_sup;
+
+WEIGHT = weights;
+
+MISSING ARE ALL (-999);
+
+ANALYSIS:
+difftest = rf_base_diff.dat;
+
+MODEL:
+INFECT_BL BY bl_cont bl_death bl_trans bl_fdsworry(1-4);
+WORK_BL BY bl_workst bl_train bl_quit bl_coord bl_com bl_man bl_sup(5-11);
+
+INFECT_t6 BY t6_cont t6_death t6_trans t6_fdsworry(1-4);
+WORK_t6 BY t6_workst t6_train t6_quit t6_coord t6_com t6_man t6_sup(5-11);
+
+INFECT_t12 BY t12_cont t12_death t12_trans t12_fdsworry(1-4);
+WORK_t12 BY t12_workst t12_train t12_quit t12_coord t12_com t12_man t12_sup(5-11);
+
+!Thresholds
+[bl_cont$1-t12_cont$1];
+
+[bl_death$1-t12_death$1];
+
+[bl_trans$1-t12_trans$1];
+
+[bl_fdsworry$1-t12_fdsworry$1];
+
+[bl_workst$1-t12_workst$1];
+
+[bl_train$1-t12_train$1];
+
+[bl_quit$1-t12_quit$1];
+
+[bl_coord$1-t12_coord$1];
+
+[bl_com$1-t12_com$1];
+
+[bl_man$1-t12_man$1];
+
+[bl_sup$1-t12_sup$1];
+
+
+!Autocorrelated errors
+bl_cont with t6_cont t12_cont;
+t6_cont with t12_cont;
+
+bl_death with t6_death t12_death;
+t6_death with t12_death;
+
+bl_trans with t6_trans t12_trans;
+t6_trans with t12_trans;
+
+bl_fdsworry with t6_fdsworry t12_fdsworry;
+t6_fdsworry with t12_fdsworry;
+
+bl_workst with t6_workst t12_workst;
+t6_workst with t12_workst;
+
+bl_train with t6_train t12_train;
+t6_train with t12_train;
+
+bl_quit with t6_quit t12_quit;
+t6_quit with t12_quit;
+
+bl_coord with t6_coord t12_coord;
+t6_coord with t12_coord;
+
+bl_com with t6_com t12_com;
+t6_com with t12_com;
+
+bl_man with t6_man t12_man;
+t6_man with t12_man;
+
+bl_sup with t6_sup t12_sup;
+t6_sup with t12_sup;
+
+OUTPUT:
+STDYX MOD (3.84);

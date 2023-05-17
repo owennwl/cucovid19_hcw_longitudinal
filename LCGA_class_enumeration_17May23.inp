@@ -1,0 +1,39 @@
+DATA:
+FILE IS "dataset.csv";
+
+VARIABLE:
+NAMES ARE subj_id weight phq9_0 gad7_0 pcl5_0 phq9_6 gad7_6 pcl5_6
+phq9_12 gad7_12 pcl5_12 inf_i inf_s work_i work_s;
+
+IDVARIABLE = subj_id;
+
+USEVARIABLES ARE phq9_0 gad7_0 pcl5_0 phq9_6 gad7_6 pcl5_6
+phq9_12 gad7_12 pcl5_12;
+
+MISSING ARE ALL (-999);
+
+WEIGHT = weight;
+
+CLASSES=C(1); !Change this to set number of classes
+
+ANALYSIS:
+TYPE = mixture;
+STARTS = 200, 40;
+STITERATIONS = 100;
+Processors = 4;
+LRTBOOTSTRAP = 50;
+
+MODEL:
+%overall%
+dep_i dep_s dep_q| phq9_0@0 phq9_6@6 phq9_12@18;
+anx_i anx_s anx_q| gad7_0@0 gad7_6@6 gad7_12@18;
+ptsd_i ptsd_s ptsd_q| pcl5_0@0 pcl5_6@6 pcl5_12@18;
+
+phq9_0 with gad7_0 pcl5_0; gad7_0 with pcl5_0;
+phq9_6 with gad7_6 pcl5_6; gad7_6 with pcl5_6;
+phq9_12 with gad7_12 pcl5_12; gad7_12 with pcl5_12;
+
+dep_i - ptsd_q@0;
+
+OUTPUT:
+TECH4 TECH7 TECH11 TECH14;
