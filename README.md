@@ -14,8 +14,13 @@ To achieve these objectives, Latent Class Growth Analysis (LCGA), Confirmatory F
 Repository Contents
 
 CFA_stronginvariance_17May23.inp: MPlus input file for CFA with strong invariance
+
 CFA_weakinvariance_17May23.inp: MPlus input file for CFA with weak invariance
+
 CFA_unconstrained_17May23.inp: MPlus input file for CFA with unconstrained model
+
 LCGA_class_enumeration_17May23.inp: MPlus input file for LCGA class enumeration
+
 LCGA_covariates_17May23.inp: MPlus input file for testing the effects of transmission worries and workpalce difficulties on class membership and growth factors
+
 individual_regression_17May23.ipynb: Python notebook for individual linear regression
