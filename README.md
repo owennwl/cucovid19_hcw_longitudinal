@@ -12,7 +12,6 @@ The primary objectives of this study are:
 To achieve these objectives, Latent Class Growth Analysis (LCGA), Confirmatory Factor Analysis (CFA), and individual regression will be performed.
 
 Repository Contents
-This repository contains the following files:
 
 CFA_stronginvariance_17May23.inp: MPlus input file for CFA with strong invariance
 CFA_weakinvariance_17May23.inp: MPlus input file for CFA with weak invariance
