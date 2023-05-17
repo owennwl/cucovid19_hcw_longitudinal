@@ -1,8 +1,8 @@
-# cucovid19_hcw_longitudinal
+# CUCOVID19 Healthcare Workers Longitudinal Analysis
 
 This repository contains the code and documentation for the analysis of mental health trends among healthcare workers (HCWs) in Hong Kong. The study is based on three waves of survey results from the CU-COVID19 study, a multi-center, web-based observational cohort study investigating the incident mental morbidity of COVID-19 survivors, healthcare workers, and the general Hong Kong population.
 
-Primary Objectives
+## Primary Objectives
 The primary objectives of this study are:
 
 1. To examine longitudinal mental health growth trends in healthcare workers over an 18-month period during the pandemic.
@@ -11,7 +11,7 @@ The primary objectives of this study are:
 
 To achieve these objectives, Latent Class Growth Analysis (LCGA), Confirmatory Factor Analysis (CFA), and individual regression will be performed.
 
-Repository Contents
+##Repository Contents
 
 CFA_stronginvariance_17May23.inp: MPlus input file for CFA with strong invariance
 
